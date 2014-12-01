@@ -27,6 +27,7 @@
         </activity>
         <activity
             android:name=".Activity.MainActivity"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_main" >
         </activity>
     </application>
