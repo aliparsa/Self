@@ -1,6 +1,5 @@
 package com.pishgamanasia.self.Helper;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +8,7 @@ import android.text.InputType;
 import android.widget.EditText;
 
 import com.pishgamanasia.self.Activity.LoginActivity;
-import com.pishgamanasia.self.Callback.CallBackFunction;
+import com.pishgamanasia.self.Interface.CallBackFunction;
 
 
 /**

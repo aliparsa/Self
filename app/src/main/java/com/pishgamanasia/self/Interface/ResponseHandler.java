@@ -1,4 +1,4 @@
-package com.pishgamanasia.self.Callback;
+package com.pishgamanasia.self.Interface;
 
 
 import com.pishgamanasia.self.DataModel.ServerResponse;

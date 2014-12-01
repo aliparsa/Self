@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.pishgamanasia.self.Callback.CallBack;
-import com.pishgamanasia.self.Callback.CallBackFunction;
+import com.pishgamanasia.self.Interface.CallBack;
+import com.pishgamanasia.self.Interface.CallBackFunction;
 import com.pishgamanasia.self.Helper.Account;
 import com.pishgamanasia.self.Helper.HandleError;
 import com.pishgamanasia.self.Helper.ValidationMessage;
@@ -114,40 +114,43 @@ public class LoginActivity extends Activity {
 
         loaderBar.setVisibility(View.VISIBLE);
 
-        Webservice.Login(this, username, password, new CallBack<String>() {
-            @Override
-            public void onSuccess(String token) {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
 
-                // Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
-                Account.getInstant(context).storeToken(token);
-                callMainActivity();
-
-            }
-
-            @Override
-            public void onError(String err) {
-
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
-                panel.startAnimation(animation);
-
-                btnLogin.setVisibility(View.VISIBLE);
-                imgv.setVisibility(View.VISIBLE);
-
-                loaderBar.setVisibility(View.GONE);
-
-                HandleError.HandleError(context, err, new CallBackFunction() {
-                    @Override
-                    public void execute() {
-
-                    }
-                });
-                //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-
-
-            }
-
-
-        });
+//        Webservice.Login(this, username, password, new CallBack<String>() {
+//            @Override
+//            public void onSuccess(String token) {
+//
+//                // Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
+//                Account.getInstant(context).storeToken(token);
+//                callMainActivity();
+//
+//            }
+//
+//            @Override
+//            public void onError(String err) {
+//
+//                Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
+//                panel.startAnimation(animation);
+//
+//                btnLogin.setVisibility(View.VISIBLE);
+//                imgv.setVisibility(View.VISIBLE);
+//
+//                loaderBar.setVisibility(View.GONE);
+//
+//                HandleError.HandleError(context, err, new CallBackFunction() {
+//                    @Override
+//                    public void execute() {
+//
+//                    }
+//                });
+//                //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//
+//
+//        });
 
     }
 

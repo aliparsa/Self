@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 
-import com.pishgamanasia.self.Callback.CallBack;
-import com.pishgamanasia.self.Callback.ResponseHandler;
+import com.pishgamanasia.self.Interface.CallBack;
+import com.pishgamanasia.self.Interface.ResponseHandler;
 import com.pishgamanasia.self.DataModel.ServerResponse;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -28,7 +28,7 @@ public class Webservice {
     }
 
     private static String SERVER_ADDRESS = "http://192.168.0.11:6061";
-    private static String SERVER_ADDRESS_POSTFIX = "/areas/buffet/service/webserviceAndroid.asmx";
+    private static String SERVER_ADDRESS_POSTFIX = "/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
     //-----------------------------------------------------------------------------
 
     public static String getWEBSERVICE_ADDRESS() {
@@ -163,7 +163,6 @@ public class Webservice {
         //HttpHelper helper = new HttpHelper(context, SERVER_ADDRESS, false, 0);
 
         BasicNameValuePair[] arr = {
-                new BasicNameValuePair("tag", "login"),
                 new BasicNameValuePair("username", username),
                 new BasicNameValuePair("password", password),
                 new BasicNameValuePair("deviceId", "rx12")

@@ -4,10 +4,9 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 
 
-import com.pishgamanasia.self.Callback.ResponseHandler;
+import com.pishgamanasia.self.Interface.ResponseHandler;
 import com.pishgamanasia.self.DataModel.ServerResponse;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -18,7 +17,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -70,6 +68,7 @@ public class HttpHelper {
                 public ServerResponse loadInBackground() {
 
                     try {
+
                         HttpClient httpclient = new DefaultHttpClient();
                         HttpPost httppost = new HttpPost(self.url);
 
@@ -90,6 +89,8 @@ public class HttpHelper {
                             }
                             httppost.setEntity(new UrlEncodedFormEntity(basicNameValuePairs, HTTP.UTF_8));
                         }
+
+                        httppost.setHeader(HTTP.CONTENT_TYPE,"text/xml; charset=utf-8");
 
                         HttpResponse response = httpclient.execute(httppost);
 
