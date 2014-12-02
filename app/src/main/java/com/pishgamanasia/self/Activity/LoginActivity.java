@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.pishgamanasia.self.DataModel.LoginInfo;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.Interface.CallBackFunction;
 import com.pishgamanasia.self.Helper.Account;
@@ -43,11 +44,11 @@ public class LoginActivity extends Activity {
 
         context = this;
 
-        if (Account.getInstant(this).alreadyHaveToken()) {
-
-            callMainActivity();
-
-        }
+//        if (Account.getInstant(this).alreadyHaveToken()) {
+//
+//            callMainActivity();
+//
+//        }
 
 
         txtUsername = (EditText) findViewById(R.id.etxt_fragmentLogin_username);
@@ -117,40 +118,20 @@ public class LoginActivity extends Activity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
 
-//        Webservice.Login(this, username, password, new CallBack<String>() {
-//            @Override
-//            public void onSuccess(String token) {
-//
-//                // Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
-//                Account.getInstant(context).storeToken(token);
-//                callMainActivity();
-//
-//            }
-//
-//            @Override
-//            public void onError(String err) {
-//
-//                Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
-//                panel.startAnimation(animation);
-//
-//                btnLogin.setVisibility(View.VISIBLE);
-//                imgv.setVisibility(View.VISIBLE);
-//
-//                loaderBar.setVisibility(View.GONE);
-//
-//                HandleError.HandleError(context, err, new CallBackFunction() {
-//                    @Override
-//                    public void execute() {
-//
-//                    }
-//                });
-//                //Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-//
-//
-//            }
-//
-//
-//        });
+
+        Webservice.soapLogin(context,"admin","1234","x12",new CallBack<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo result) {
+                Account.getInstant(context).storeToken(result.getToken());
+                callMainActivity(result);
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
 
     }
 
@@ -171,8 +152,9 @@ public class LoginActivity extends Activity {
         return true;
     }
 
-    private void callMainActivity() {
+    private void callMainActivity(LoginInfo loginInfo) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("loginInfo",loginInfo);
         startActivity(intent);
         this.finish();
     }

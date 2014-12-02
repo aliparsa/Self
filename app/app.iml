@@ -66,6 +66,7 @@
     <orderEntry type="library" exported="" name="httpclient-4.3.5" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="ksoap2-android-assembly-2.5.8-jar-with-dependencies" level="project" />
     <orderEntry type="library" exported="" name="disklrucache-2.0.1" level="project" />
   </component>
 </module>

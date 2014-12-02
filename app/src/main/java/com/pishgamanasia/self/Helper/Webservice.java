@@ -3,15 +3,20 @@ package com.pishgamanasia.self.Helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 
+import com.pishgamanasia.self.DataModel.LoginInfo;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.Interface.ResponseHandler;
 import com.pishgamanasia.self.DataModel.ServerResponse;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
 
 /**
@@ -20,6 +25,11 @@ import org.json.JSONObject;
 
 
 public class Webservice {
+
+    public static final int LOGIN_OK=200;
+    public static final int LOGIN_FAILED=201;
+
+
     //this is sparta
 
 
@@ -53,6 +63,76 @@ public class Webservice {
     }
 
     //-----------------------------------------------------------------------------
+    public static void soapLogin(Context context, final String username, final String password, final String deviceId, final CallBack<LoginInfo> callback) {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    final String NAMESPACE = "http://192.168.0.11:6061/Areas/Buffet/Service/";
+                    final String METHOD_NAME1 = "GetStep1";
+                    final String URL = "http://192.168.0.11:6061/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
+                    final String SOAP_ACTION1 = "http://192.168.0.11:6061/Areas/Buffet/Service/GetStep1";
+
+                    SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME1);
+
+                    request.addProperty("username", username);
+                    request.addProperty("password", password);
+                    request.addProperty("deviceId", deviceId);
+
+                    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                    envelope.setOutputSoapObject(request);
+                    envelope.dotNet = true;
+
+                    HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+                    //this is the actual part that will call the webservice
+                    androidHttpTransport.call(SOAP_ACTION1, envelope);
+
+                    // Get the SoapResult from the envelope body.
+                    SoapObject result = (SoapObject) envelope.bodyIn;
+
+                    if (result != null) {
+                        // Get result and get result code and check it
+                        int resultCode = Integer.parseInt(result.getProperty("resultCode").toString());
+
+                        switch (resultCode) {
+                            case LOGIN_OK: {
+
+                                String token = (String) result.getProperty("token");
+                                String name = (String) result.getProperty("name");
+                                int resturantId = Integer.parseInt(result.getProperty("resturantId").toString());
+                                String resturantName = (String) result.getProperty("resturantName");
+                                String deliverPersonel = (String) result.getProperty("deliverPersonel");
+                                callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel));
+
+                            }
+                            case LOGIN_FAILED: {
+                                callback.onError("login failed");
+                            }
+                            default: {
+                                callback.onError("server response is not valid ");
+                            }
+                        }
+                    } else {
+
+                        callback.onError("result is null");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.onError(e.getMessage());
+                }
+
+            }
+        });
+        thread.start();
+
+
+    }
+
+
+
 //    public static void getProjects(Context context, final CallBack<ArrayList<Chart>> callBack) {
 //
 //        prepareServerAddress(context);
