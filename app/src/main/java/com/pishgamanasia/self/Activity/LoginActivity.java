@@ -115,11 +115,7 @@ public class LoginActivity extends Activity {
 
         loaderBar.setVisibility(View.VISIBLE);
 
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-
-
-        Webservice.soapLogin(context,"admin","1234","x12",new CallBack<LoginInfo>() {
+        Webservice.Login(context,"admin","1234","x12",new CallBack<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo result) {
                 Account.getInstant(context).storeToken(result.getToken());

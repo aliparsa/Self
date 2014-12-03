@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.DataModel.LoginInfo;
 import com.pishgamanasia.self.R;
 
 import java.util.Date;
@@ -17,19 +20,35 @@ public class MainActivity extends Activity {
     private TextView servedCounter;
     private TextView timer;
     private TextView buffetName;
+    private TextView userName;
+    private Button send_card_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
+
 
         servedCounter = (TextView) findViewById(R.id.txt_served_count);
         timer = (TextView) findViewById(R.id.txt_timer);
         buffetName = (TextView) findViewById(R.id.txt_buffet_name);
+        userName = (TextView) findViewById(R.id.txt_username);
+        send_card_id = (Button) findViewById(R.id.send_card_id);
 
+        buffetName.setText(loginInfo.getResturantName());
+        userName.setText(loginInfo.getName());
 
         setTimer();
+
+        send_card_id.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     private void setTimer() {

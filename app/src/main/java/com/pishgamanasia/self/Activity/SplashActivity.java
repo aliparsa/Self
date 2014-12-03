@@ -29,7 +29,9 @@ public class SplashActivity extends Activity {
                 finish();
 
             }
-        }, 1200);
+        }, 1);
+
+        //TODO change 1 to 1200
 
     }
 

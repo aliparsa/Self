@@ -18,6 +18,8 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by aliparsa on 8/9/2014.
@@ -26,8 +28,8 @@ import org.ksoap2.transport.HttpTransportSE;
 
 public class Webservice {
 
-    public static final int LOGIN_OK=200;
-    public static final int LOGIN_FAILED=201;
+    public static final int LOGIN_OK=100;
+    public static final int LOGIN_FAILED=101;
 
 
     //this is sparta
@@ -37,7 +39,7 @@ public class Webservice {
         return SERVER_ADDRESS;
     }
 
-    private static String SERVER_ADDRESS = "http://192.168.0.11:6061";
+    private static String SERVER_ADDRESS = "http://192.168.0.14:6061";
     private static String SERVER_ADDRESS_POSTFIX = "/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
     //-----------------------------------------------------------------------------
 
@@ -63,72 +65,69 @@ public class Webservice {
     }
 
     //-----------------------------------------------------------------------------
-    public static void soapLogin(Context context, final String username, final String password, final String deviceId, final CallBack<LoginInfo> callback) {
+    public static void Login(Context context, final String username, final String password, final String deviceId, final CallBack<LoginInfo> callback) {
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
+        try {
+            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+            final String METHOD_NAME = "GetStep1";
+            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
+            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetStep1";
 
-                    final String NAMESPACE = "http://192.168.0.11:6061/Areas/Buffet/Service/";
-                    final String METHOD_NAME1 = "GetStep1";
-                    final String URL = "http://192.168.0.11:6061/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
-                    final String SOAP_ACTION1 = "http://192.168.0.11:6061/Areas/Buffet/Service/GetStep1";
+            SoapHelper soapHelper = new SoapHelper(NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
 
-                    SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME1);
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<String>();
 
-                    request.addProperty("username", username);
-                    request.addProperty("password", password);
-                    request.addProperty("deviceId", deviceId);
+            names.add("username");
+            values.add(username);
 
-                    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-                    envelope.setOutputSoapObject(request);
-                    envelope.dotNet = true;
+            names.add("password");
+            values.add(password);
 
-                    HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            names.add("deviceId");
+            values.add(deviceId);
 
-                    //this is the actual part that will call the webservice
-                    androidHttpTransport.call(SOAP_ACTION1, envelope);
+            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    try {
 
-                    // Get the SoapResult from the envelope body.
-                    SoapObject result = (SoapObject) envelope.bodyIn;
-
-                    if (result != null) {
-                        // Get result and get result code and check it
-                        int resultCode = Integer.parseInt(result.getProperty("resultCode").toString());
+                        int resultCode = resultCode = result.getInt("ResultCode");
 
                         switch (resultCode) {
                             case LOGIN_OK: {
-
-                                String token = (String) result.getProperty("token");
-                                String name = (String) result.getProperty("name");
-                                int resturantId = Integer.parseInt(result.getProperty("resturantId").toString());
-                                String resturantName = (String) result.getProperty("resturantName");
-                                String deliverPersonel = (String) result.getProperty("deliverPersonel");
+                                String token = result.getString("token");
+                                String name = result.getString("name");
+                                int resturantId = result.getInt("restaurantId");
+                                String resturantName = result.getString("restaurantName");
+                                String deliverPersonel = result.getString("deliverPersonel");
                                 callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel));
-
+                                break;
                             }
                             case LOGIN_FAILED: {
                                 callback.onError("login failed");
+                                break;
                             }
                             default: {
                                 callback.onError("server response is not valid ");
+                                break;
                             }
                         }
-                    } else {
-
-                        callback.onError("result is null");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    callback.onError(e.getMessage());
                 }
 
-            }
-        });
-        thread.start();
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
 
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

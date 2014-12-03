@@ -9,16 +9,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/relativeLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
        android:gravity="center"
         android:orientation="vertical"
-        >
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -57,6 +61,14 @@
         />
 
         <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:layout_margin="10dp"
+            android:text="منتظر کارت" />
+
+        <TextView
             android:id="@+id/txt_buffet_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,39 +77,30 @@
             android:text="this is a sample text"
             />
 
-        </LinearLayout>
+    </LinearLayout>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#555"
+        android:background="#ffc6c6c6"
         android:minHeight="50dp"
-        android:gravity="center"
-        >
+        android:id="@+id/relativeLayout">
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:layout_marginLeft="10dp"
-            >
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/vazife"
-                />
-
-            <TextView
-                android:text="نام کاربر username"
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:layout_marginLeft="10dp"
-                />
+                android:text="send card id"
+                android:id="@+id/send_card_id" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -105,14 +108,34 @@
                 android:src="@drawable/exit"
                 android:layout_marginLeft="15dp"
                 />
+
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/settings"
                 android:layout_marginLeft="15dp"
                 />
-            </LinearLayout>
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/txt_username"
+                android:text="نام کاربر username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="10dp"
+                />
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/vazife"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
