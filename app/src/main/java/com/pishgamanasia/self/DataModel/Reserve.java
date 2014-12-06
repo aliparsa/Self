@@ -1,5 +1,12 @@
 package com.pishgamanasia.self.DataModel;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.pishgamanasia.self.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -107,5 +114,66 @@ public class Reserve {
 
     public void setFoods(ArrayList<Food> foods) {
         this.foods = foods;
+    }
+
+    public View getView(Context context, View oldView) {
+
+        if (oldView == null || !(oldView.getTag() instanceof Reserve)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            oldView = inflater.inflate(R.layout.item_reserve, null);
+            Holder holder = new Holder();
+            oldView.setTag(holder);
+            getItem(holder, oldView);
+            return oldView;
+        } else {
+            Holder holder = (Holder) oldView.getTag();
+            getItem(holder, oldView);
+            return oldView;
+        }
+    }
+
+    private void getItem(Holder holder, View view) {
+
+        holder.reserve = this;
+
+        if (holder.name == null)
+            holder.name = (TextView) view.findViewById(R.id.name);
+
+        if (holder.family == null)
+            holder.family = (TextView) view.findViewById(R.id.family);
+
+        if (holder.deliveryStatus == null)
+            holder.deliveryStatus = (TextView) view.findViewById(R.id.deliveryStatus);
+
+        if (holder.deliverDate == null)
+            holder.deliverDate = (TextView) view.findViewById(R.id.deliverDate);
+
+        if (holder.foods == null)
+            holder.foods = (TextView) view.findViewById(R.id.foods);
+
+
+        holder.name.setText(getName());
+        holder.family.setText(getFamily());
+        holder.deliveryStatus.setText(getDeliveryStatus());
+        holder.deliverDate.setText(getDeliverDate());
+
+        String foodList = "";
+        for (int i = 0; i < getFoods().size(); i++) {
+             Food food = getFoods().get(i);
+            foodList= foodList+"  *-  "+food.getCaption()+ "\n";
+
+        }
+        holder.foods.setText(foodList);
+    }
+
+
+    public class Holder {
+        TextView name;
+        TextView family;
+        TextView foods;
+        TextView deliveryStatus;
+        TextView deliverDate;
+
+        Reserve reserve;
     }
 }

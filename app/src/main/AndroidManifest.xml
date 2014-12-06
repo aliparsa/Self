@@ -40,7 +40,8 @@
         </activity>
         <activity
             android:name=".Activity.DeliveryActivity"
-            android:label="@string/title_activity_delivery" >
+            android:label="@string/title_activity_delivery"
+            android:theme="@style/CustomActivityThemeNoActionBar">
         </activity>
     </application>
 
