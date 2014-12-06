@@ -1,5 +1,6 @@
 package com.pishgamanasia.self.Helper;
 
+import android.content.Context;
 import android.content.Entity;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -26,9 +27,11 @@ public class SoapHelper {
     String METHOD_NAME;
     String URL;
     String SOAP_ACTION1;
+    Context context;
 
 
-    public SoapHelper(String namespace, String methodName, String url, String soapAction) {
+    public SoapHelper(Context context,String namespace, String methodName, String url, String soapAction) {
+        this.context=context;
         this.NAMESPACE = namespace;
         this.METHOD_NAME = methodName;
         this.URL = url;
@@ -46,6 +49,8 @@ public class SoapHelper {
                     for (int i = 0; i < names.size(); i++) {
                         request.addProperty(names.get(i), values.get(i));
                     }
+
+
 
                     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
                     envelope.setOutputSoapObject(request);

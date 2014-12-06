@@ -1,6 +1,7 @@
 package com.pishgamanasia.self.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.Webservice;
+import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.R;
 
 import java.util.Date;
@@ -22,12 +25,13 @@ public class MainActivity extends Activity {
     private TextView buffetName;
     private TextView userName;
     private Button send_card_id;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context=this;
         LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
 
@@ -45,6 +49,18 @@ public class MainActivity extends Activity {
         send_card_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Webservice.sendCard(context,"3088488979",new CallBack<Object>() {
+                    @Override
+                    public void onSuccess(Object result) {
+
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
 
             }
         });
