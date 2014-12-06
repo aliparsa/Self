@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.TimerHelper;
 import com.pishgamanasia.self.Helper.Webservice;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.R;
@@ -84,22 +85,13 @@ public class MainActivity extends Activity {
 
     private void setTimer() {
 
-
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
+        TimerHelper.timerFactory(1000,2 , new TimerHelper.TimerFunction() {
             @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Date date = new Date();
-                        timer.setText(date.getHours() + " : " + date.getMinutes());
-                    }
-                });
-
+            public void tick() {
+                Date date = new Date();
+                timer.setText(date.getHours() + " : " + date.getMinutes());
             }
-        }, 1000);
+        });
 
     }
 
