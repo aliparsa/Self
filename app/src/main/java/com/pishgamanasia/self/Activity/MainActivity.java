@@ -71,9 +71,6 @@ public class MainActivity extends Activity {
                 intent.putExtra("cardId","2551444574");
                 startActivity(intent);
 
-
-
-
             }
         });
 
@@ -89,7 +86,7 @@ public class MainActivity extends Activity {
             @Override
             public void tick() {
                 Date date = new Date();
-                timer.setText(date.getHours() + " : " + date.getMinutes());
+//                timer.setText(date.getHours() + " : " + date.getMinutes());
             }
         });
 

@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.DataModel.Personnel;
+import com.pishgamanasia.self.DataModel.Reserve;
+import com.pishgamanasia.self.DataModel.ServerCardResponse;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.Interface.ResponseHandler;
 import com.pishgamanasia.self.DataModel.ServerResponse;
@@ -127,7 +130,7 @@ public class Webservice {
     }
 
     //--------------------------------------------------------------------------
-    public static void sendCard(Context context,final String cardNo, final CallBack<Object> callback) {
+    public static void sendCard(Context context,final String cardNo, final CallBack<ServerCardResponse> callback) {
 
         try {
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
@@ -157,7 +160,11 @@ public class Webservice {
                         switch (resultCode) {
                             case RESULT_OK: {
 
-                                  //callback.onSuccess();
+                                ArrayList<Personnel> personnels = Personnel.getArrayFromJson(result.getString("Personels"));
+                                ArrayList<Reserve> reserves = Reserve.getArrayFromJson(result.getString("Reserves"));
+                                String message = result.getString("Message");
+                                String status = result.getString("Status");
+                                callback.onSuccess(new ServerCardResponse(personnels,reserves,message,status));
                                 break;
                             }
 
