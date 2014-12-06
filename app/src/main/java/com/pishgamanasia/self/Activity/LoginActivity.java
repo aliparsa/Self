@@ -61,6 +61,15 @@ public class LoginActivity extends Activity {
 //        FontHelper.SetFont(context, Fonts.MAIN_FONT,btnLogin, Typeface.BOLD);
 
         imgv = (ImageView) findViewById(R.id.imgv_fragmentLogin_setting);
+
+        imgv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(context,LogActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
         imgv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +121,6 @@ public class LoginActivity extends Activity {
 
         btnLogin.setVisibility(View.GONE);
         imgv.setVisibility(View.GONE);
-
         loaderBar.setVisibility(View.VISIBLE);
 
         Webservice.Login(context,"admin","1234","x12",new CallBack<LoginInfo>() {
@@ -125,7 +133,9 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onError(String errorMessage) {
-
+                btnLogin.setVisibility(View.VISIBLE);
+                imgv.setVisibility(View.VISIBLE);
+                loaderBar.setVisibility(View.GONE);
             }
         });
 

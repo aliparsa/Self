@@ -47,7 +47,7 @@ public class LogHelper extends SQLiteOpenHelper {
                         + LOG_ID + " INTEGER PRIMARY KEY,"
                         + LOG_DATE + " TEXT,"
                         + LOG_REQUEST + " TEXT,"
-                        + LOG_RESPONSE + " TEXT,"
+                        + LOG_RESPONSE + " TEXT"
                         + ")";
         db.execSQL(CREATE_LOG_TABLE);
 
@@ -66,6 +66,9 @@ public class LogHelper extends SQLiteOpenHelper {
     }
 
     public void InsertLog(String date, String request, String response){
+
+        request = request.replace("\"","'");
+        response = response.replace("\"","'");
 
         ContentValues values = new ContentValues();
         values.put(LOG_DATE, date);
