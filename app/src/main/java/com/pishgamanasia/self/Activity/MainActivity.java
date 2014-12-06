@@ -2,11 +2,13 @@ package com.pishgamanasia.self.Activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
@@ -26,6 +28,7 @@ public class MainActivity extends Activity {
     private TextView userName;
     private Button send_card_id;
     private Context context;
+    private ImageView vazifeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,18 @@ public class MainActivity extends Activity {
 
         buffetName.setText(loginInfo.getResturantName());
         userName.setText(loginInfo.getName());
+
+
+        //log activity
+        vazifeImage = (ImageView) findViewById(R.id.vazife);
+        vazifeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, LogActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         setTimer();
 
