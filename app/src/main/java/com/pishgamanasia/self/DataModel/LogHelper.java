@@ -11,8 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pishgamanasia.self.Helper.DatabaseHelper;
+import com.pishgamanasia.self.Helper.JsonFormatter;
 import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,9 +190,15 @@ public class LogHelper extends SQLiteOpenHelper {
             if (holder.date == null)
                 holder.date = (TextView) view.findViewById(R.id.date);
 
-
             holder.request.setText(getRequest());
-            holder.response.setText(getResponse());
+
+            try {
+                holder.response.setText(JsonFormatter.format(getResponse()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                holder.response.setText(getResponse());
+            }
+
             holder.date.setText(getDate());
         }
 

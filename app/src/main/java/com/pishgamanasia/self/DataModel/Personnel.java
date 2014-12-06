@@ -1,5 +1,13 @@
 package com.pishgamanasia.self.DataModel;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.pishgamanasia.self.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -48,6 +56,50 @@ public class Personnel {
 
         }
         return itemlist;
+    }
+
+    public View getView(Context context, View oldView) {
+
+        if (oldView == null || !(oldView.getTag() instanceof Personnel)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            oldView = inflater.inflate(R.layout.item_personnel, null);
+            Holder holder = new Holder();
+            oldView.setTag(holder);
+            getItem(holder, oldView);
+            return oldView;
+        } else {
+            Holder holder = (Holder) oldView.getTag();
+            getItem(holder, oldView);
+            return oldView;
+        }
+    }
+
+    private void getItem(Holder holder, View view) {
+
+        holder.personnel = this;
+
+        if (holder.name == null)
+            holder.name = (TextView) view.findViewById(R.id.personnelName);
+
+        if (holder.code == null)
+            holder.code = (TextView) view.findViewById(R.id.personnelCode);
+
+        if (holder.image == null)
+            holder.image = (ImageView) view.findViewById(R.id.personnelImage);
+
+
+        holder.name.setText(getName() + " " + getFamily());
+        holder.code.setText(getNationalNo());
+        //holder.image.setImageResource();
+    }
+
+
+    public class Holder {
+        TextView name;
+        TextView code;
+        ImageView image;
+
+        Personnel personnel;
     }
 
     public int getId() {
