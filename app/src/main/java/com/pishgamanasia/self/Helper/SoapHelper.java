@@ -2,35 +2,15 @@ package com.pishgamanasia.self.Helper;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Entity;
-import android.os.Bundle;
-import android.provider.Settings;
-
 import com.pishgamanasia.self.DataModel.LogHelper;
-import com.pishgamanasia.self.DataModel.LoginInfo;
 import com.pishgamanasia.self.DataModel.PersianCalendar;
 import com.pishgamanasia.self.Interface.CallBack;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by parsa on 2014-12-03.

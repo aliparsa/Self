@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
 import com.pishgamanasia.self.Helper.TimerHelper;
@@ -66,7 +67,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                Webservice.sendCard(context,"3088488979",new CallBack<Object>() {
+                Webservice.sendCard(context,"2551444574",new CallBack<Object>() {
                     @Override
                     public void onSuccess(Object result) {
 
@@ -74,13 +75,17 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onError(String errorMessage) {
-
+                    msgUser("خطا");
                     }
                 });
 
             }
         });
 
+    }
+
+    private void msgUser(String errMessage) {
+        Toast.makeText(context,errMessage,Toast.LENGTH_SHORT).show();
     }
 
     private void setTimer() {
