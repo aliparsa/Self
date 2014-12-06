@@ -1,5 +1,12 @@
 package com.pishgamanasia.self.DataModel;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
+import com.pishgamanasia.self.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,7 +56,51 @@ public class Personnel {
         }
         return itemlist;
     }
+/*
+    public View getView(Context context, View oldView) {
 
+        if (oldView == null || !(oldView.getTag() instanceof Personnel)) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            oldView = inflater.inflate(R.layout.item_personnel, null);
+            Holder holder = new Holder();
+            oldView.setTag(holder);
+            getItem(holder, oldView);
+            return oldView;
+        } else {
+            Holder holder = (Holder) oldView.getTag();
+            getItem(holder, oldView);
+            return oldView;
+        }
+    }
+
+    private void getItem(Holder holder, View view) {
+
+        holder.log = this;
+
+        if (holder.request == null)
+            holder.request = (TextView) view.findViewById(R.id.request);
+
+        if (holder.response == null)
+            holder.response = (TextView) view.findViewById(R.id.response);
+
+        if (holder.date == null)
+            holder.date = (TextView) view.findViewById(R.id.date);
+
+
+        holder.request.setText(getRequest());
+        holder.response.setText(getResponse());
+        holder.date.setText(getDate());
+    }
+
+
+    public class Holder {
+        TextView request;
+        TextView response;
+        TextView date;
+
+        Log log;
+    }
+*/
     public int getId() {
         return id;
     }
