@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.pishgamanasia.self.DataModel.ServerCardResponse;
 import com.pishgamanasia.self.Helper.Webservice;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.R;
@@ -23,9 +24,9 @@ public class DeliveryActivity extends Activity {
             context=this;
 
             String cardId = getIntent().getStringExtra("cardId");
-            Webservice.sendCard(context,cardId,new CallBack<Object>() {
+            Webservice.sendCard(context,cardId,new CallBack<ServerCardResponse>() {
                 @Override
-                public void onSuccess(Object result) {
+                public void onSuccess(ServerCardResponse result) {
 
                     // TODO Do Something
 
