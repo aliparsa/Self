@@ -146,11 +146,11 @@ public class Webservice {
             names.add("cardNo");
             values.add(cardNo);
 
-            names.add("restaurantId");
-            values.add("1");
-
-            names.add("deliverPersonel");
-            values.add("1");
+//            names.add("restaurantId");
+//            values.add("1");
+//
+//            names.add("deliverPersonel");
+//            values.add("1");
 
             soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
                 @Override

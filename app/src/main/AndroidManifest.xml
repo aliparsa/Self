@@ -35,6 +35,7 @@
         <activity
             android:name=".Activity.LogActivity"
             android:label="@string/title_activity_log"
+            android:screenOrientation="landscape"
             android:theme="@style/CustomActivityThemeNoActionBar"
             >
         </activity>
