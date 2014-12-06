@@ -6,9 +6,9 @@ package com.pishgamanasia.self.DataModel;
 public class Food {
     int id;
     String caption;
-    String count;
+    int count;
 
-    public Food(int id, String caption, String count) {
+    public Food(int id, String caption, int count) {
         this.id = id;
         this.caption = caption;
         this.count = count;
@@ -30,11 +30,11 @@ public class Food {
         this.caption = caption;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }

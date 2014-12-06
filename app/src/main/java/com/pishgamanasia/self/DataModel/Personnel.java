@@ -1,5 +1,10 @@
 package com.pishgamanasia.self.DataModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by parsa on 2014-12-06.
  */
@@ -17,6 +22,32 @@ public class Personnel {
         this.family = family;
         this.nationalNo = nationalNo;
         this.imageUrl = imageUrl;
+    }
+
+    public static ArrayList<Personnel> getArrayFromJson(String personnelJson) {
+        ArrayList<Personnel> itemlist = null;
+        try {
+
+            JSONArray jsonArray = new JSONArray(personnelJson);
+            itemlist = new ArrayList<Personnel>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject obj = jsonArray.getJSONObject(i);
+
+                int id = obj.getInt("Id");
+                String name = obj.getString("Name");
+                String family= obj.getString("Family");
+                String nationalNo= obj.getString("NationalNo");
+                String imageUrl= obj.getString("ImageUrl");
+                Personnel personnel = new Personnel(id, name, family, nationalNo, imageUrl);
+                itemlist.add(personnel);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return itemlist;
     }
 
     public int getId() {

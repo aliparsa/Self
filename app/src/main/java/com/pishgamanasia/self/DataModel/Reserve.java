@@ -1,5 +1,8 @@
 package com.pishgamanasia.self.DataModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -20,6 +23,42 @@ public class Reserve {
         this.deliveryStatus = deliveryStatus;
         this.deliverDate = deliverDate;
         this.foods = foods;
+    }
+
+    public static ArrayList<Reserve> getArrayFromJson(String ReserveJson) {
+        ArrayList<Reserve> itemlist = null;
+        try {
+
+            JSONArray jsonArray = new JSONArray(ReserveJson);
+            itemlist = new ArrayList<Reserve>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject obj = jsonArray.getJSONObject(i);
+
+
+                int id = obj.getInt("Id");
+                String name = obj.getString("Name");
+                String family = obj.getString("Family");
+                String deliveryStatus = obj.getString("DeliveryStatus");
+                String deliverDate = obj.getString("DeliveryDate");
+
+                //foods
+                ArrayList<Food> foods = new ArrayList<Food>();
+                JSONArray foodsArray = obj.getJSONArray("Foods");
+                for (int ii = 0; ii < foodsArray.length(); ii++) {
+                    JSONObject objFood = foodsArray.getJSONObject(i);
+                    foods.add(new Food(objFood.getInt("Id"), objFood.getString("Caption"), objFood.getInt("Count")));
+                }
+
+                Reserve reserve = new Reserve(id, name, family, deliveryStatus, deliverDate, foods);
+                itemlist.add(reserve);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return itemlist;
     }
 
     public int getId() {
