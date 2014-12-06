@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:textSize="12sp"
-        android:textColor="#ff909090"
+        android:textColor="#ff3b3b3b"
         android:textStyle="italic"
         />
 

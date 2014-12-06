@@ -80,7 +80,7 @@ public class LogHelper extends SQLiteOpenHelper {
     public List<Log> getAllLog(int count){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOG + " LIMIT " + count, null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOG + " ORDER BY " + LOG_DATE + " DESC" + " LIMIT " + count , null);
         ArrayList<Log> logs = new ArrayList<Log>();
 
 
