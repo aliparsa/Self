@@ -36,8 +36,11 @@
             android:name=".Activity.LogActivity"
             android:label="@string/title_activity_log"
             android:screenOrientation="landscape"
-            android:theme="@style/CustomActivityThemeNoActionBar"
-            >
+            android:theme="@style/CustomActivityThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".Activity.DeliveryActivity"
+            android:label="@string/title_activity_delivery" >
         </activity>
     </application>
 

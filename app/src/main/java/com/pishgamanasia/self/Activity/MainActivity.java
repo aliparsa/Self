@@ -67,17 +67,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                Webservice.sendCard(context,"2551444574",new CallBack<Object>() {
-                    @Override
-                    public void onSuccess(Object result) {
+                Intent intent = new Intent(context,DeliveryActivity.class);
+                intent.putExtra("cardId","2551444574");
+                startActivity(intent);
 
-                    }
 
-                    @Override
-                    public void onError(String errorMessage) {
-                    msgUser("خطا");
-                    }
-                });
+
 
             }
         });
