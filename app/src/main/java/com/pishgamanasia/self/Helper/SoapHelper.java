@@ -5,7 +5,9 @@ import android.content.Entity;
 import android.os.Bundle;
 import android.provider.Settings;
 
+import com.pishgamanasia.self.DataModel.LogHelper;
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.DataModel.PersianCalendar;
 import com.pishgamanasia.self.Interface.CallBack;
 
 import org.apache.http.NameValuePair;
@@ -60,6 +62,10 @@ public class SoapHelper {
 
                     //this is the actual part that will call the webservice
                     androidHttpTransport.call(SOAP_ACTION1, envelope);
+
+                    LogHelper log = new LogHelper(context);
+                    String attrs = "";
+                    log.InsertLog(new PersianCalendar().getGregorianDateTime(), envelope.bodyOut.toString(), envelope.bodyIn.toString());
 
                     // Get the SoapResult from the envelope body.
                     SoapObject result = (SoapObject) envelope.bodyIn;
