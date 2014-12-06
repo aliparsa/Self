@@ -190,15 +190,15 @@ public class LogHelper extends SQLiteOpenHelper {
             if (holder.date == null)
                 holder.date = (TextView) view.findViewById(R.id.date);
 
+            holder.request.setText(getRequest());
+
             try {
-                holder.request.setText(JsonFormatter.format(getRequest()));
                 holder.response.setText(JsonFormatter.format(getResponse()));
             } catch (JSONException e) {
                 e.printStackTrace();
-
-                holder.request.setText(getRequest());
                 holder.response.setText(getResponse());
             }
+
             holder.date.setText(getDate());
         }
 
