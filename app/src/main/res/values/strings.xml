@@ -8,5 +8,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_log">LogActivity</string>
     <string name="title_activity_delivery">DeliveryActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
 
 </resources>

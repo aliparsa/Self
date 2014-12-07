@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.SettingHelper;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.Interface.CallBackFunction;
 import com.pishgamanasia.self.Helper.Account;
@@ -44,11 +46,18 @@ public class LoginActivity extends Activity {
 
         context = this;
 
-//        if (Account.getInstant(this).alreadyHaveToken()) {
-//
-//            callMainActivity();
-//
-//        }
+        // set Default Setting after Install App
+        SettingHelper settingHelper = new SettingHelper(context);
+        if (settingHelper.getOption("firstTime")==null){
+            // Avalin Bar Ast
+            settingHelper.setOption("firstTime","1");
+            settingHelper.setOption("deviceId","x1");
+            settingHelper.setOption("serverAddress","http://192.168.0.1:1111");
+
+        }else{
+            // Avalin Bar Nist
+        }
+
 
 
         txtUsername = (EditText) findViewById(R.id.etxt_fragmentLogin_username);
@@ -73,28 +82,8 @@ public class LoginActivity extends Activity {
         imgv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("آدرس سرور را وارد نمایید");
-
-                final EditText input = new EditText(context);
-                input.setText(Webservice.getSERVER_ADDRESS());
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-
-                builder.setPositiveButton("ذخیره", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Webservice.modifyServerAddress(input.getText().toString(), context);
-                    }
-                });
-                builder.setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
+                Intent intent = new Intent(context,SettingActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -136,6 +125,7 @@ public class LoginActivity extends Activity {
                 btnLogin.setVisibility(View.VISIBLE);
                 imgv.setVisibility(View.VISIBLE);
                 loaderBar.setVisibility(View.GONE);
+                msgUser(errorMessage);
             }
         });
 
@@ -163,5 +153,9 @@ public class LoginActivity extends Activity {
         intent.putExtra("loginInfo",loginInfo);
         startActivity(intent);
         this.finish();
+    }
+
+    private void msgUser(String errMessage) {
+        Toast.makeText(context, errMessage, Toast.LENGTH_SHORT).show();
     }
 }

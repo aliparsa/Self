@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.SettingHelper;
 import com.pishgamanasia.self.Helper.TimerHelper;
 import com.pishgamanasia.self.Helper.Webservice;
 import com.pishgamanasia.self.Interface.CallBack;
@@ -37,6 +38,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context=this;
+
+
+
+
+
+
         LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
 

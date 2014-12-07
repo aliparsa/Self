@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:textColor="#ff007118"
-        android:textSize="15sp"
+        android:textSize="18sp"
         />
 
     <TextView
@@ -20,7 +20,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textSize="12sp"
+        android:textSize="18sp"
+
         android:textColor="#ff3b3b3b"
         android:textStyle="italic"
         />
@@ -30,7 +31,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textSize="12sp"
+        android:textSize="18sp"
+
         android:textColor="#ff3b3b3b"
         android:textStyle="italic"
         />
@@ -39,7 +41,8 @@
         android:id="@+id/foods"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="18sp"
+
         android:textColor="#ff5e1b00"
         />
 

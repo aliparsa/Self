@@ -30,43 +30,15 @@ public class Webservice {
     private static final int LOGIN_FAILED=101;
 
 
-    //this is sparta
 
-
-    public static String getSERVER_ADDRESS() {
-        return SERVER_ADDRESS;
-    }
-
-    private static String SERVER_ADDRESS = "http://192.168.0.14:6061";
-    private static String SERVER_ADDRESS_POSTFIX = "/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
-
-    //-----------------------------------------------------------------------------
-    public static String getWEBSERVICE_ADDRESS() {
-        return SERVER_ADDRESS + SERVER_ADDRESS_POSTFIX;
-    }
-
-    //--------------------------------------------------------------------------
-    private static void prepareServerAddress(Context context) {
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        String server_address = preferences.getString("server_address3", null);
-
-        if (server_address != null) {
-            SERVER_ADDRESS = server_address;
-        } else {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("server_address3", SERVER_ADDRESS);
-            editor.apply();
-        }
-
-
-    }
 
     //-----------------------------------------------------------------------------
     public static void Login(Context context,final String username, final String password, final String deviceId, final CallBack<LoginInfo> callback) {
 
         try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
             final String METHOD_NAME = "GetStep1";
             final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
@@ -119,7 +91,7 @@ public class Webservice {
 
                 @Override
                 public void onError(String errorMessage) {
-
+                    callback.onError(errorMessage);
                 }
             });
 
@@ -128,11 +100,13 @@ public class Webservice {
             e.printStackTrace();
         }
     }
-
     //--------------------------------------------------------------------------
     public static void sendCard(Context context,final String cardNo, final CallBack<ServerCardResponse> callback) {
 
         try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
             final String METHOD_NAME = "GetStep2";
             final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep2";
@@ -189,21 +163,14 @@ public class Webservice {
             e.printStackTrace();
         }
     }
-
-    //-------------------------------------------------------------------------------
-    public static void modifyServerAddress(String serverAddress, Context context) {
-        if (serverAddress.length() < 1) return;
-        SERVER_ADDRESS = serverAddress;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("server_address3", SERVER_ADDRESS);
-        editor.apply();
-    }
-
     //-------------------------------------------------------------------------------
     public static void sendTahvil(Context context,String strJsonListReserve){
 
         try {
+
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
             final String METHOD_NAME = "GetStep3";
             final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep3";
@@ -263,6 +230,6 @@ public class Webservice {
     }
     //-------------------------------------------------------------------------------
 
-    //-------------------------------------------------------------------------------
+
 
 }

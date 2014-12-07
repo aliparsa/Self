@@ -1,0 +1,79 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/scrollView"
+    android:padding="5dp"
+    tools:context="com.pga.project1.Activities.SettingActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:id="@+id/option_device_id"
+            android:layout_width="fill_parent"
+            android:layout_height="85dp"
+            android:padding="15dp"
+            android:background="#ffe1e0e4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="کد دستگاه"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/textView3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textview_current_device_id"
+                android:layout_below="@+id/textView3"
+                android:layout_alignRight="@+id/textView3"
+                android:layout_alignEnd="@+id/textView3" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/option_server_address"
+            android:layout_width="fill_parent"
+            android:layout_height="85dp"
+            android:padding="15dp"
+            android:background="#ffe1e0e4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="آدرس سرور"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/textView2" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textview_current_server_address"
+                android:layout_below="@+id/textView2"
+                android:layout_alignRight="@+id/textView2"
+                android:layout_alignEnd="@+id/textView2" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
