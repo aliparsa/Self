@@ -123,7 +123,7 @@ public class LoginActivity extends Activity {
         imgv.setVisibility(View.GONE);
         loaderBar.setVisibility(View.VISIBLE);
 
-        Webservice.Login(context,"admin","1234","x12",new CallBack<LoginInfo>() {
+        Webservice.Login(context,username,password,"x12",new CallBack<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo result) {
                 Account.getInstant(context).storeToken(result.getToken());

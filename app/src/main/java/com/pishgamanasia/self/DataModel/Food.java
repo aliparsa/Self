@@ -25,7 +25,8 @@ public class Food implements ListViewItemINTERFACE {
     @Override
     public boolean equals(Object o) {
         //return super.equals(o);
-        return this.id==((Food)o).getId();
+        Food other = ((Food)o);
+        return this.id == other.getId();
     }
 
     public View getView(Context context, View oldView) {

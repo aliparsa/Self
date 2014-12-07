@@ -68,7 +68,9 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(context,DeliveryActivity.class);
-                intent.putExtra("cardId","2551444574");
+                //intent.putExtra("cardId","2551444574");
+                intent.putExtra("cardId","3041609107");
+
                 startActivity(intent);
 
             }

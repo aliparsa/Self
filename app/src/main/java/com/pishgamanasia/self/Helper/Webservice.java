@@ -201,7 +201,66 @@ public class Webservice {
     }
 
     //-------------------------------------------------------------------------------
+    public static void sendTahvil(Context context,String strJsonListReserve){
 
+        try {
+            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+            final String METHOD_NAME = "GetStep3";
+            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep3";
+            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetStep3";
+
+            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<String>();
+
+            names.add("token");
+            values.add(Account.getInstant(context).getToken());
+
+            names.add("listReserveId");
+            values.add(strJsonListReserve);
+
+
+            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    try {
+
+                        int resultCode = resultCode = result.getInt("ResultCode");
+
+                        switch (resultCode) {
+                            case RESULT_OK: {
+
+                                ArrayList<Personnel> personnels = Personnel.getArrayFromJson(result.getString("Personels"));
+                                ArrayList<Reserve> reserves = Reserve.getArrayFromJson(result.getString("Reserves"));
+                                String message = result.getString("Message");
+                                String status = result.getString("Status");
+                             //   callback.onSuccess(new ServerCardResponse(personnels,reserves,message,status));
+                                break;
+                            }
+
+                            default: {
+                             //   callback.onError("server response is not valid ");
+                                break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     //-------------------------------------------------------------------------------
 
     //-------------------------------------------------------------------------------
