@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
 
 import org.json.JSONArray;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by parsa on 2014-12-06.
  */
-public class Reserve {
+public class Reserve implements ListViewItemINTERFACE {
     int id;
     String name;
     String family;
@@ -47,13 +48,14 @@ public class Reserve {
                 String name = obj.getString("Name");
                 String family = obj.getString("Family");
                 String deliveryStatus = obj.getString("DeliveryStatus");
-                String deliverDate = obj.getString("DeliveryDate");
+                String deliverDate = "2014/12/07 09:35" ;
+                        //obj.getString("DeliveryDate");
 
                 //foods
                 ArrayList<Food> foods = new ArrayList<Food>();
                 JSONArray foodsArray = obj.getJSONArray("Foods");
                 for (int ii = 0; ii < foodsArray.length(); ii++) {
-                    JSONObject objFood = foodsArray.getJSONObject(i);
+                    JSONObject objFood = foodsArray.getJSONObject(ii);
                     foods.add(new Food(objFood.getInt("Id"), objFood.getString("Caption"), objFood.getInt("Count")));
                 }
 
@@ -139,8 +141,8 @@ public class Reserve {
         if (holder.name == null)
             holder.name = (TextView) view.findViewById(R.id.name);
 
-        if (holder.family == null)
-            holder.family = (TextView) view.findViewById(R.id.family);
+//        if (holder.family == null)
+//            holder.family = (TextView) view.findViewById(R.id.family);
 
         if (holder.deliveryStatus == null)
             holder.deliveryStatus = (TextView) view.findViewById(R.id.deliveryStatus);
@@ -152,15 +154,25 @@ public class Reserve {
             holder.foods = (TextView) view.findViewById(R.id.foods);
 
 
-        holder.name.setText(getName());
-        holder.family.setText(getFamily());
-        holder.deliveryStatus.setText(getDeliveryStatus());
-        holder.deliverDate.setText(getDeliverDate());
+        holder.name.setText("نام شخص"+" : "+getName()+" "+getFamily());
+        //holder.family.setText(getFamily());
+
+        if(getDeliveryStatus().equals("0")) {
+            holder.deliveryStatus.setText("وضعیت تحویل" + " : " + "تحویل نشده");
+            holder.deliverDate.setText("");
+        }
+        else {
+            holder.deliveryStatus.setText("وضعیت تحویل" + " : " + "تحویل شده");
+            holder.deliverDate.setText("تاریخ تحویل"+" : "+getDeliverDate());
+        }
+
+
+
 
         String foodList = "";
         for (int i = 0; i < getFoods().size(); i++) {
              Food food = getFoods().get(i);
-            foodList= foodList+"  *-  "+food.getCaption()+ "\n";
+            foodList= foodList+"● "+food.getCaption()+" تعداد "+food.getCount()+ "\n";
 
         }
         holder.foods.setText(foodList);

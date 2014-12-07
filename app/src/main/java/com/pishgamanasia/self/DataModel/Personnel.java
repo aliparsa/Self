@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
 
 import org.json.JSONArray;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by parsa on 2014-12-06.
  */
-public class Personnel {
+public class Personnel implements ListViewItemINTERFACE {
     int id;
 
     String name;
