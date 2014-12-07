@@ -77,23 +77,23 @@ public class SoapHelper {
                 } catch (Exception e) {
                     e.printStackTrace();
                     return null;
-                }
+        }
 
-            }
+    }
 
-            @Override
-            public void deliverResult(JSONObject data) {
+    @Override
+    public void deliverResult(JSONObject data) {
 
-                if (data != null) {
+        if (data != null) {
 
-                    callback.onSuccess(data);
-                    super.deliverResult(data);
+            callback.onSuccess(data);
+            super.deliverResult(data);
 
-                } else {
+        } else {
 
-                    callback.onError("result is null / Server Response Not Valid");
-                }
-            }
+            callback.onError("result is null / Server Response Not Valid");
+        }
+    }
         }.forceLoad();
 
     }

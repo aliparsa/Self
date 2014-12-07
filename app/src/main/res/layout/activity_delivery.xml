@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="تحویل"
             android:background="#ff7aff88"
-            android:id="@+id/button"
+            android:id="@+id/buttonTahvil"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
