@@ -7,9 +7,9 @@
     <color name="chart_date_color">#ec4b2c</color>
 
 
-    <color name="login_button_background">#00dac3</color>
+    <color name="login_button_background">#bf093c8d</color>
     <color name="login_text_color">#ffffff</color>
-    <color name="user_pass_edittext_stroke">#cadfde</color>
+    <color name="user_pass_edittext_stroke">#79327bf1</color>
     <color name="user_pass_edittext_solid">#e8f0ef</color>
 
 

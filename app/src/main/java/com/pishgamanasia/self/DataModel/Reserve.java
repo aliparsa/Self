@@ -3,6 +3,7 @@ package com.pishgamanasia.self.DataModel;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
@@ -153,6 +154,9 @@ public class Reserve implements ListViewItemINTERFACE {
         if (holder.foods == null)
             holder.foods = (TextView) view.findViewById(R.id.foods);
 
+        if (holder.statusImage == null)
+            holder.statusImage = (ImageView) view.findViewById(R.id.status_image);
+
 
         holder.name.setText("نام شخص"+" : "+getName()+" "+getFamily());
         //holder.family.setText(getFamily());
@@ -160,13 +164,15 @@ public class Reserve implements ListViewItemINTERFACE {
         if(getDeliveryStatus().equals("0")) {
             holder.deliveryStatus.setText("وضعیت تحویل" + " : " + "تحویل نشده");
             holder.deliverDate.setText("");
+
+            holder.statusImage.setImageResource(R.drawable.ic_steak);
         }
         else {
             holder.deliveryStatus.setText("وضعیت تحویل" + " : " + "تحویل شده");
             holder.deliverDate.setText("تاریخ تحویل"+" : "+getDeliverDate());
+
+            holder.statusImage.setImageResource(R.drawable.ic_steak_bw);
         }
-
-
 
 
         String foodList = "";
@@ -185,6 +191,7 @@ public class Reserve implements ListViewItemINTERFACE {
         TextView foods;
         TextView deliveryStatus;
         TextView deliverDate;
+        ImageView statusImage;
 
         Reserve reserve;
     }
