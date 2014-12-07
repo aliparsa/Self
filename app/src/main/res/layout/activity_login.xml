@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo_"
+            android:src="@drawable/ic_food"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal" />
 
@@ -115,7 +115,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Copyright Pishgaman Asia 2014"
         android:id="@+id/textView"
-        android:textColor="#00dac3"
+        android:textColor="@color/login_button_background"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout"
