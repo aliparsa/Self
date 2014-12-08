@@ -29,12 +29,14 @@ public class Meal {
         ArrayList<Meal> itemlist = null;
         try {
 
+
             JSONArray jsonArray = new JSONArray(mealsJson);
             itemlist = new ArrayList<Meal>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 Meal meal = new Meal(jsonArray.get(i).toString());
                 itemlist.add(meal);
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
