@@ -1,12 +1,14 @@
 package com.pishgamanasia.self.DataModel;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.Helper.AsynLoadImage;
 import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
@@ -68,17 +70,17 @@ public class Personnel implements ListViewItemINTERFACE {
             oldView = inflater.inflate(R.layout.item_personnel, null);
             Holder holder = new Holder();
             oldView.setTag(holder);
-            getItem(holder, oldView);
+            getItem(holder, oldView, context);
             holder.setFont(context);
             return oldView;
         } else {
             Holder holder = (Holder) oldView.getTag();
-            getItem(holder, oldView);
+            getItem(holder, oldView, context);
             return oldView;
         }
     }
 
-    private void getItem(Holder holder, View view) {
+    private void getItem(final Holder holder, View view, Context context) {
 
         holder.personnel = this;
 
@@ -96,8 +98,26 @@ public class Personnel implements ListViewItemINTERFACE {
         holder.code.setText("کد ملی: "+getNationalNo());
 
 
+        if(!getImageUrl().equals("")){
 
-        //holder.image.setImageResource();
+            AsynLoadImage loader = new AsynLoadImage(context, getImageUrl(), new AsynLoadImage.ProgressCallBack<Bitmap>() {
+                @Override
+                public void onSuccess(Bitmap result) {
+                    holder.image.setImageBitmap(result);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+
+                @Override
+                public void onProgress(int done, int total, Bitmap result) {
+
+                }
+            });
+        }
+
     }
 
 
