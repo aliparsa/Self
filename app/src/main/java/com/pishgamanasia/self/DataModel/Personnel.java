@@ -1,11 +1,13 @@
 package com.pishgamanasia.self.DataModel;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
 
@@ -67,6 +69,7 @@ public class Personnel implements ListViewItemINTERFACE {
             Holder holder = new Holder();
             oldView.setTag(holder);
             getItem(holder, oldView);
+            holder.setFont(context);
             return oldView;
         } else {
             Holder holder = (Holder) oldView.getTag();
@@ -90,7 +93,10 @@ public class Personnel implements ListViewItemINTERFACE {
 
 
         holder.name.setText(getName() + " " + getFamily());
-        holder.code.setText(getNationalNo());
+        holder.code.setText("کد ملی: "+getNationalNo());
+
+
+
         //holder.image.setImageResource();
     }
 
@@ -99,8 +105,12 @@ public class Personnel implements ListViewItemINTERFACE {
         TextView name;
         TextView code;
         ImageView image;
-
         Personnel personnel;
+
+        public void setFont(Context context){
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,name, Typeface.NORMAL);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,code, Typeface.NORMAL);
+        }
     }
 
     public int getId() {

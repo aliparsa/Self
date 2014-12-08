@@ -1,10 +1,12 @@
 package com.pishgamanasia.self.DataModel;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
 
@@ -37,6 +39,7 @@ public class Food implements ListViewItemINTERFACE {
             Holder holder = new Holder();
             oldView.setTag(holder);
             getItem(holder, oldView);
+            holder.setFont(context);
             return oldView;
         } else {
             Holder holder = (Holder) oldView.getTag();
@@ -56,7 +59,7 @@ public class Food implements ListViewItemINTERFACE {
             holder.count = (TextView) view.findViewById(R.id.food_count);
 
         holder.name.setText(getCaption());
-        holder.count.setText(getCount() + "");
+        holder.count.setText(getCount() + "    x    ");
     }
 
 
@@ -65,6 +68,11 @@ public class Food implements ListViewItemINTERFACE {
         TextView count;
 
         Food food;
+
+        public void setFont(Context context){
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, name, Typeface.NORMAL);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,count, Typeface.NORMAL);
+        }
     }
 
     public int getId() {

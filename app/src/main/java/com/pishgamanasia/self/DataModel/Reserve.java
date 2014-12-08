@@ -1,11 +1,13 @@
 package com.pishgamanasia.self.DataModel;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Interface.ListViewItemINTERFACE;
 import com.pishgamanasia.self.R;
 
@@ -127,6 +129,7 @@ public class Reserve implements ListViewItemINTERFACE {
             Holder holder = new Holder();
             oldView.setTag(holder);
             getItem(holder, oldView);
+            holder.setFont(context);
             return oldView;
         } else {
             Holder holder = (Holder) oldView.getTag();
@@ -142,9 +145,6 @@ public class Reserve implements ListViewItemINTERFACE {
         if (holder.name == null)
             holder.name = (TextView) view.findViewById(R.id.name);
 
-//        if (holder.family == null)
-//            holder.family = (TextView) view.findViewById(R.id.family);
-
         if (holder.deliveryStatus == null)
             holder.deliveryStatus = (TextView) view.findViewById(R.id.deliveryStatus);
 
@@ -159,7 +159,7 @@ public class Reserve implements ListViewItemINTERFACE {
 
 
         holder.name.setText(getName()+" "+getFamily());
-        //holder.family.setText(getFamily());
+
 
         if(getDeliveryStatus().equals("0")) {
             holder.deliveryStatus.setText("تحویل نشده");
@@ -190,12 +190,18 @@ public class Reserve implements ListViewItemINTERFACE {
 
     public class Holder {
         TextView name;
-        TextView family;
         TextView foods;
         TextView deliveryStatus;
         TextView deliverDate;
         ImageView statusImage;
 
         Reserve reserve;
+
+        public void setFont(Context context){
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, name, Typeface.NORMAL);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,foods, Typeface.NORMAL);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,deliveryStatus, Typeface.NORMAL);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,deliverDate, Typeface.NORMAL);
+        }
     }
 }
