@@ -1,15 +1,11 @@
 package com.pishgamanasia.self.Activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,11 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.AccountHelper;
+import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Helper.SettingHelper;
 import com.pishgamanasia.self.Interface.CallBack;
-import com.pishgamanasia.self.Interface.CallBackFunction;
-import com.pishgamanasia.self.Helper.Account;
-import com.pishgamanasia.self.Helper.HandleError;
 import com.pishgamanasia.self.Helper.ValidationMessage;
 import com.pishgamanasia.self.Helper.Webservice;
 import com.pishgamanasia.self.R;
@@ -88,6 +83,7 @@ public class LoginActivity extends Activity {
         });
 
         btnLogin = (Button) findViewById(R.id.btn_fragmentLogin_login);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,btnLogin, Typeface.NORMAL);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public ValidationMessage validationMessage;
 
@@ -115,7 +111,7 @@ public class LoginActivity extends Activity {
         Webservice.Login(context,username,password,"x12",new CallBack<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo result) {
-                Account.getInstant(context).storeToken(result.getToken());
+                AccountHelper.getInstant(context).storeToken(result.getToken());
                 callMainActivity(result);
 
             }

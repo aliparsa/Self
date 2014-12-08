@@ -3,6 +3,7 @@ package com.pishgamanasia.self.Activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Helper.SettingHelper;
 import com.pishgamanasia.self.Helper.TimerHelper;
 import com.pishgamanasia.self.Helper.Webservice;
@@ -28,6 +30,7 @@ public class MainActivity extends Activity {
     private TextView servedCounter;
     private TextView timer;
     private TextView buffetName;
+    private TextView montazerKart;
     private TextView userName;
     private Button send_card_id;
     private Context context;
@@ -48,6 +51,7 @@ public class MainActivity extends Activity {
 
 
         servedCounter = (TextView) findViewById(R.id.txt_served_count);
+        montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
         timer = (TextView) findViewById(R.id.txt_timer);
         buffetName = (TextView) findViewById(R.id.txt_buffet_name);
         userName = (TextView) findViewById(R.id.txt_username);
@@ -82,6 +86,14 @@ public class MainActivity extends Activity {
 
             }
         });
+
+
+        // change font
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,timer, Typeface.BOLD);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,buffetName, Typeface.BOLD);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,userName, Typeface.BOLD);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,montazerKart, Typeface.BOLD);
+
 
     }
 
