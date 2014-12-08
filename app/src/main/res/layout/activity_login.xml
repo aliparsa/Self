@@ -34,7 +34,6 @@
             <EditText
                 android:id="@+id/etxt_fragmentLogin_username"
                 android:hint="نام کاربری"
-
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -44,7 +43,6 @@
                 android:padding="7dp"
                 android:drawableRight="@drawable/ic_username"
                 android:textColorHint="#c2c2c2"
-
                 android:background="@drawable/user_pass_textfield_background"
                 android:gravity="center"
                 android:singleLine="true"

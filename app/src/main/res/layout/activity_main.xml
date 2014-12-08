@@ -73,6 +73,7 @@
             />
 
         <ImageView
+            android:id="@+id/imgv_setting"
             android:layout_width="45dp"
             android:layout_height="fill_parent"
             android:src="@drawable/ic_settings"
@@ -94,14 +95,21 @@
                 android:layout_height="fill_parent"
                 android:layout_margin="5dp"
                 android:text="ارسال کد"
+
+                android:minWidth="100dp"
+                android:textColor="#fff"
+                android:background="@drawable/login_button_background"
+                android:layout_marginRight="15dp"
                 android:id="@+id/send_card_id" />
 
             <EditText
                 android:id="@+id/code"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:layout_margin="5dp"
-                android:minWidth="60dp"
+                android:minWidth="150dp"
+                android:text="3041609107"
+                android:gravity="center"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/user_pass_textfield_background"
                 android:inputType="number"
                 />
@@ -109,7 +117,7 @@
 
             <TextView
                 android:id="@+id/txt_username"
-                android:text="نام کاربر username"
+                android:textSize="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical|center_horizontal"
@@ -119,6 +127,7 @@
             <ImageView
                 android:id="@+id/vazife"
                 android:layout_width="45dp"
+                android:layout_marginRight="15dp"
                 android:layout_height="fill_parent"
                 android:src="@drawable/ic_user"
                 android:layout_alignParentTop="true"

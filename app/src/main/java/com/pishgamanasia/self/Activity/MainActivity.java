@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import com.pishgamanasia.self.Helper.Webservice;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.R;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,6 +41,8 @@ public class MainActivity extends Activity {
     private Context context;
     private ImageView vazifeImage;
     private ImageView exit;
+    private ImageView imgv_setting;
+    private EditText code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +58,15 @@ public class MainActivity extends Activity {
         LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
 
-        servedCounter = (TextView) findViewById(R.id.txt_served_count);
+
         montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
         timer = (TextView) findViewById(R.id.txt_timer);
         buffetName = (TextView) findViewById(R.id.txt_buffet_name);
         userName = (TextView) findViewById(R.id.txt_username);
         send_card_id = (Button) findViewById(R.id.send_card_id);
         exit = (ImageView) findViewById(R.id.imagev_exit);
+        imgv_setting = (ImageView) findViewById(R.id.imgv_setting);
+        code = (EditText) findViewById(R.id.code);
 
         buffetName.setText(loginInfo.getResturantName());
         userName.setText(loginInfo.getName());
@@ -81,10 +88,21 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 AccountHelper.getInstant(context).clearToken();
                 ((MainActivity) context).finish();
+                Intent intent = new Intent(context,LoginActivity.class);
+                startActivity(intent);
+
             }
         });
 
         setTimer();
+
+        imgv_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         send_card_id.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +110,8 @@ public class MainActivity extends Activity {
 
                 Intent intent = new Intent(context,DeliveryActivity.class);
                 //intent.putExtra("cardId","2551444574");
-                intent.putExtra("cardId","3041609107");
-
+                if (code.length()>1)
+                intent.putExtra("cardId",code.getText().toString());
                 startActivity(intent);
 
             }
@@ -105,6 +123,12 @@ public class MainActivity extends Activity {
         FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,buffetName, Typeface.BOLD);
         FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,userName, Typeface.BOLD);
         FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,montazerKart, Typeface.BOLD);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,code, Typeface.BOLD);
+
+
+
+        // clear keyboard on start
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
     }
@@ -121,8 +145,11 @@ public class MainActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Date date = new Date();
-                        timer.setText(date.getHours() + " : " + date.getMinutes());
+                        Calendar c = Calendar.getInstance();
+                        int hr = c.get(Calendar.HOUR);
+                        int min = c.get(Calendar.MINUTE);
+                        int sec = c.get(Calendar.SECOND);
+                        timer.setText(hr+" : "+ (min < 10 ? "0"+min : min) +" : "+ (sec < 10 ? "0"+sec : sec));
                     }
                 });
             }

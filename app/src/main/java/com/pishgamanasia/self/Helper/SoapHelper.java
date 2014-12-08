@@ -91,7 +91,7 @@ public class SoapHelper {
 
         } else {
 
-            callback.onError("result is null / Server Response Not Valid");
+            callback.onError("Server Response Not Valid");
         }
     }
         }.forceLoad();
