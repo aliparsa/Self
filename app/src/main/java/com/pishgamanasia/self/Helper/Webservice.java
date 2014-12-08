@@ -114,7 +114,7 @@ public class Webservice {
             ArrayList<String> values = new ArrayList<String>();
 
             names.add("token");
-            values.add(Account.getInstant(context).getToken());
+            values.add(AccountHelper.getInstant(context).getToken());
 
             names.add("cardNo");
             values.add(cardNo);
@@ -178,7 +178,7 @@ public class Webservice {
             ArrayList<String> values = new ArrayList<String>();
 
             names.add("token");
-            values.add(Account.getInstant(context).getToken());
+            values.add(AccountHelper.getInstant(context).getToken());
 
             names.add("listReserveId");
             values.add(strJsonListReserve);

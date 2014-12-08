@@ -48,7 +48,7 @@ public class HttpHelper {
         this.context = context;
 
 
-        token = Account.getInstant(context).getToken();
+        token = AccountHelper.getInstant(context).getToken();
     }
 
     public void postHttp(final BasicNameValuePair[] params, final ResponseHandler handler) {

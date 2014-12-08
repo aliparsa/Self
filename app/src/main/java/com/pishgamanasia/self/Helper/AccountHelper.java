@@ -7,24 +7,24 @@ import android.preference.PreferenceManager;
 /**
  * Created by aliparsa on 8/10/2014.
  */
-public class Account {
+public class AccountHelper {
 
 
-    static Account instant;
+    static AccountHelper instant;
     String token;
 
 
     Context context;
 
 
-    public Account() {
+    public AccountHelper() {
 
     }
 
-    public static Account getInstant(Context context) {
+    public static AccountHelper getInstant(Context context) {
 
         if (instant == null && context != null) {
-            instant = new Account();
+            instant = new AccountHelper();
             instant.context = context;
         }
 

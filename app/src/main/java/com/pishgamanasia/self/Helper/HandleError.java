@@ -69,7 +69,7 @@ public class HandleError {
         else if (err.equals("UNAUTHORIZED")) {
 
             // clear token
-            Account.getInstant(context).clearToken();
+            AccountHelper.getInstant(context).clearToken();
 
             // pass user to login page
             Intent intent = new Intent(context, LoginActivity.class);
