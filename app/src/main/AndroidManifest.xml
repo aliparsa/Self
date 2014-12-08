@@ -41,6 +41,11 @@
         <activity
             android:name=".Activity.DeliveryActivity"
             android:label="@string/title_activity_delivery"
+            android:theme="@style/CustomActivityThemeNoActionBar" >
+        </activity>
+        <activity
+            android:name=".Activity.SettingActivity"
+            android:label="@string/title_activity_setting"
             android:theme="@style/CustomActivityThemeNoActionBar">
         </activity>
     </application>

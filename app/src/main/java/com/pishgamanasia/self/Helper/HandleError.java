@@ -20,6 +20,7 @@ public class HandleError {
 
         // toast error
         // Toast.makeText(context, err, Toast.LENGTH_SHORT).show();
+        final SettingHelper setting = new SettingHelper(context);
 
         //---------------------------------------
         if (err.equals("network error")) {
@@ -39,14 +40,15 @@ public class HandleError {
                                     builder.setTitle("آدرس سرور را وارد نمایید");
 
                                     final EditText input = new EditText(context);
-                                    input.setText(Webservice.getSERVER_ADDRESS());
+                                    input.setText(setting.getOption("serverAddress"));
                                     input.setInputType(InputType.TYPE_CLASS_TEXT);
                                     builder.setView(input);
 
                                     builder.setPositiveButton("ذخیره", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Webservice.modifyServerAddress(input.getText().toString(), context);
+                                            SettingHelper setting = new SettingHelper(context);
+                                            setting.setOption("serverAddress",input.getText().toString());
                                             callback.execute();
                                         }
                                     });

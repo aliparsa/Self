@@ -2,7 +2,7 @@ package com.pishgamanasia.self.Helper;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import com.pishgamanasia.self.DataModel.LogHelper;
+
 import com.pishgamanasia.self.DataModel.PersianCalendar;
 import com.pishgamanasia.self.Interface.CallBack;
 import org.json.JSONObject;

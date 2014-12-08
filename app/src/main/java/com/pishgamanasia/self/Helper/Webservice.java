@@ -1,8 +1,6 @@
 package com.pishgamanasia.self.Helper;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
@@ -10,9 +8,7 @@ import com.pishgamanasia.self.DataModel.Personnel;
 import com.pishgamanasia.self.DataModel.Reserve;
 import com.pishgamanasia.self.DataModel.ServerCardResponse;
 import com.pishgamanasia.self.Interface.CallBack;
-import com.pishgamanasia.self.Interface.ResponseHandler;
-import com.pishgamanasia.self.DataModel.ServerResponse;
-import org.apache.http.message.BasicNameValuePair;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,46 +23,18 @@ import java.util.ArrayList;
 public class Webservice {
 
     private static final int RESULT_OK =100;
-    private static final int LOGIN_FAILED=101;
+    private static final int RESULT_ERROR =101;
 
 
-    //this is sparta
 
-
-    public static String getSERVER_ADDRESS() {
-        return SERVER_ADDRESS;
-    }
-
-    private static String SERVER_ADDRESS = "http://192.168.0.14:6061";
-    private static String SERVER_ADDRESS_POSTFIX = "/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
-
-    //-----------------------------------------------------------------------------
-    public static String getWEBSERVICE_ADDRESS() {
-        return SERVER_ADDRESS + SERVER_ADDRESS_POSTFIX;
-    }
-
-    //--------------------------------------------------------------------------
-    private static void prepareServerAddress(Context context) {
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        String server_address = preferences.getString("server_address3", null);
-
-        if (server_address != null) {
-            SERVER_ADDRESS = server_address;
-        } else {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("server_address3", SERVER_ADDRESS);
-            editor.apply();
-        }
-
-
-    }
 
     //-----------------------------------------------------------------------------
     public static void Login(Context context,final String username, final String password, final String deviceId, final CallBack<LoginInfo> callback) {
 
         try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
             final String METHOD_NAME = "GetStep1";
             final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
@@ -103,7 +71,7 @@ public class Webservice {
                                 callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel));
                                 break;
                             }
-                            case LOGIN_FAILED: {
+                            case RESULT_ERROR: {
                                 callback.onError("login failed");
                                 break;
                             }
@@ -119,7 +87,7 @@ public class Webservice {
 
                 @Override
                 public void onError(String errorMessage) {
-
+                    callback.onError(errorMessage);
                 }
             });
 
@@ -128,11 +96,13 @@ public class Webservice {
             e.printStackTrace();
         }
     }
-
     //--------------------------------------------------------------------------
     public static void sendCard(Context context,final String cardNo, final CallBack<ServerCardResponse> callback) {
 
         try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
             final String METHOD_NAME = "GetStep2";
             final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep2";
@@ -189,21 +159,14 @@ public class Webservice {
             e.printStackTrace();
         }
     }
-
     //-------------------------------------------------------------------------------
-    public static void modifyServerAddress(String serverAddress, Context context) {
-        if (serverAddress.length() < 1) return;
-        SERVER_ADDRESS = serverAddress;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("server_address3", SERVER_ADDRESS);
-        editor.apply();
-    }
-
-    //-------------------------------------------------------------------------------
-    public static void sendTahvil(Context context,String strJsonListReserve){
+    public static void sendTahvil(Context context,String strJsonListReserve,final CallBack callback){
 
         try {
+
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
             final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
             final String METHOD_NAME = "GetStep3";
             final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep3";
@@ -230,17 +193,16 @@ public class Webservice {
 
                         switch (resultCode) {
                             case RESULT_OK: {
-
-                                ArrayList<Personnel> personnels = Personnel.getArrayFromJson(result.getString("Personels"));
-                                ArrayList<Reserve> reserves = Reserve.getArrayFromJson(result.getString("Reserves"));
-                                String message = result.getString("Message");
-                                String status = result.getString("Status");
-                             //   callback.onSuccess(new ServerCardResponse(personnels,reserves,message,status));
+                                callback.onSuccess(null);
+                                break;
+                            }
+                            case RESULT_ERROR: {
+                                callback.onError("server return error");
                                 break;
                             }
 
                             default: {
-                             //   callback.onError("server response is not valid ");
+                                callback.onError("server response is not valid ");
                                 break;
                             }
                         }
@@ -263,6 +225,6 @@ public class Webservice {
     }
     //-------------------------------------------------------------------------------
 
-    //-------------------------------------------------------------------------------
+
 
 }

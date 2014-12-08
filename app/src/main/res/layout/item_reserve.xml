@@ -2,29 +2,31 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="5dp"
     android:layout_margin="5dp"
     >
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:textColor="#ff007118"
-        android:textSize="15sp"
-        />
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:textColor="#ff007118"
+            android:textSize="15sp"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            android:id="@+id/linearLayout">
 
 
             <ImageView
@@ -45,35 +47,34 @@
                 android:gravity="center"
                 />
 
+            <TextView
+                android:id="@+id/deliverDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:textColor="#ff3b3b3b"
+                android:textStyle="italic"
+                android:text="date"
+                />
+
             </LinearLayout>
 
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_alignParentRight="true"
-    >
-    <TextView
-        android:id="@+id/deliverDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textSize="12sp"
-        android:textColor="#ff3b3b3b"
-        android:textStyle="italic"
-        android:text="date"
-        />
+
+
+
 
     <TextView
         android:id="@+id/foods"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#ff5e1b00"
-        />
+        android:textSize="20sp"
 
-    </LinearLayout>
+        android:textColor="#ff5e1b00"
+        android:layout_below="@+id/name"
+        android:layout_alignRight="@+id/name"
+        android:layout_alignEnd="@+id/name" />
 
 
     </RelativeLayout>

@@ -22,16 +22,17 @@
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="مجموع قابل تحویل"
-                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/delivery_listview_titles_background"
                 android:id="@+id/textView3" />
 
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-
                 android:id="@+id/listView3" />
         </LinearLayout>
 
@@ -39,21 +40,22 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_weight="0.3"
-            android:background="#ffb3b1af"
+            android:background="#ffd1cfcc"
             android:layout_height="fill_parent">
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="اطلاعات رزرو"
-                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/delivery_listview_titles_background"
                 android:id="@+id/textView2" />
 
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-
                 android:id="@+id/listView2" />
         </LinearLayout>
 
@@ -66,10 +68,13 @@
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="اطلاعات کارت"
-                android:gravity="center_vertical"
+                android:background="@drawable/delivery_listview_titles_background"
+
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:id="@+id/textView" />
 
             <ListView
