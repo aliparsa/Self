@@ -3,6 +3,7 @@ package com.pishgamanasia.self.Activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import com.pishgamanasia.self.Adapter.ListViewObjectAdapter;
 import com.pishgamanasia.self.DataModel.Food;
 import com.pishgamanasia.self.DataModel.Reserve;
 import com.pishgamanasia.self.DataModel.ServerCardResponse;
+import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Helper.Webservice;
 import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.R;
@@ -60,6 +62,7 @@ public class DeliveryActivity extends Activity {
 
 
             Button buttonTahvil = (Button) findViewById(R.id.buttonTahvil);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,buttonTahvil, Typeface.NORMAL);
             buttonTahvil.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,34 +110,6 @@ public class DeliveryActivity extends Activity {
         lvReserve.setAdapter(adapterReserve);
 
 
-//        Bundle bundle = new Bundle();
-//        for (Reserve reserve:result.getReserves()) {
-//
-//            ArrayList<Food> foods = reserve.getFoods();
-//
-//            for (Food food:foods) {
-//                if (bundle.containsKey(food.getCaption())){
-//                    bundle.putInt(food.getCaption(),bundle.getInt(food.getCaption())+food.getCount());
-//                }else{
-//                    bundle.putInt(food.getCaption(),food.getCount());
-//                }
-//            }
-//        }
-
-        /*
-        Map<Food,Integer> hashMap= new HashMap<Food, Integer>();
-        for (Reserve reserve:result.getReserves()) {
-            ArrayList<Food> foods = reserve.getFoods();
-            for (Food food:foods) {
-                if(hashMap.containsKey(food)){
-                    int oldCount = hashMap.get(food);
-                    hashMap.put(food,oldCount+food.getCount());
-                }else{
-                hashMap.put(food,food.getCount());
-                }
-            }
-        }
-        */
 
         ArrayList<Food> newFoods = new ArrayList<Food>();
 

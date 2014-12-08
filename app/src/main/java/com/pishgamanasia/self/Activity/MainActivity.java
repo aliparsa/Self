@@ -118,8 +118,13 @@ public class MainActivity extends Activity {
         TimerHelper.timerFactory(1000,2 , new TimerHelper.TimerFunction() {
             @Override
             public void tick() {
-                Date date = new Date();
-//                timer.setText(date.getHours() + " : " + date.getMinutes());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Date date = new Date();
+                        timer.setText(date.getHours() + " : " + date.getMinutes());
+                    }
+                });
             }
         });
 
