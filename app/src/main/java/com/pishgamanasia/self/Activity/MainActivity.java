@@ -1,5 +1,6 @@
 package com.pishgamanasia.self.Activity;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.Helper.AccountHelper;
 import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Helper.SettingHelper;
 import com.pishgamanasia.self.Helper.TimerHelper;
@@ -35,6 +37,7 @@ public class MainActivity extends Activity {
     private Button send_card_id;
     private Context context;
     private ImageView vazifeImage;
+    private ImageView exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class MainActivity extends Activity {
         buffetName = (TextView) findViewById(R.id.txt_buffet_name);
         userName = (TextView) findViewById(R.id.txt_username);
         send_card_id = (Button) findViewById(R.id.send_card_id);
+        exit = (ImageView) findViewById(R.id.imagev_exit);
 
         buffetName.setText(loginInfo.getResturantName());
         userName.setText(loginInfo.getName());
@@ -71,6 +75,14 @@ public class MainActivity extends Activity {
             }
         });
 
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AccountHelper.getInstant(context).clearToken();
+                ((MainActivity) context).finish();
+            }
+        });
 
         setTimer();
 
