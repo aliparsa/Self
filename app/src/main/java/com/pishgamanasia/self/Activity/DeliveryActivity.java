@@ -116,6 +116,10 @@ public class DeliveryActivity extends Activity {
 
         for (Reserve reserve:result.getReserves()) {
             ArrayList<Food> foods = reserve.getFoods();
+
+            if(reserve.getDeliveryStatus().equals("1"))
+                continue;
+
             for (Food food : foods) {
 
                 Food newFood = new Food(food.getId(), food.getCaption(), food.getCount());
