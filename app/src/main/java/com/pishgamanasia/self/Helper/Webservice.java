@@ -72,7 +72,7 @@ public class Webservice {
                                 break;
                             }
                             case RESULT_ERROR: {
-                                callback.onError("login failed");
+                                callback.onError("نام و یا کلمه عبور اشتباه است");
                                 break;
                             }
                             default: {

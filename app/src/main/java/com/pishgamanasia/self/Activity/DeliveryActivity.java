@@ -68,12 +68,12 @@ public class DeliveryActivity extends Activity {
                 @Override
                 public void onClick(View view) {
 
-                    String reserveId="[";
+                    String reserveId="";
                     for (Reserve reserve:serverResponse.getReserves()){
-                        reserveId+=reserve.getId() + " ,";
+                        reserveId+=reserve.getId() + " *";
                     }
                     reserveId = reserveId.substring(0, reserveId.length() - 1);
-                    reserveId+="]";
+                    //reserveId+="]";
 
                     Webservice.sendTahvil(context, reserveId,new CallBack() {
                         @Override
