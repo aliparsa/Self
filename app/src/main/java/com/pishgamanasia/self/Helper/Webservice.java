@@ -1,8 +1,6 @@
 package com.pishgamanasia.self.Helper;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
@@ -10,9 +8,7 @@ import com.pishgamanasia.self.DataModel.Personnel;
 import com.pishgamanasia.self.DataModel.Reserve;
 import com.pishgamanasia.self.DataModel.ServerCardResponse;
 import com.pishgamanasia.self.Interface.CallBack;
-import com.pishgamanasia.self.Interface.ResponseHandler;
-import com.pishgamanasia.self.DataModel.ServerResponse;
-import org.apache.http.message.BasicNameValuePair;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +23,7 @@ import java.util.ArrayList;
 public class Webservice {
 
     private static final int RESULT_OK =100;
-    private static final int LOGIN_FAILED=101;
+    private static final int RESULT_ERROR =101;
 
 
 
@@ -75,7 +71,7 @@ public class Webservice {
                                 callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel));
                                 break;
                             }
-                            case LOGIN_FAILED: {
+                            case RESULT_ERROR: {
                                 callback.onError("login failed");
                                 break;
                             }
@@ -164,7 +160,7 @@ public class Webservice {
         }
     }
     //-------------------------------------------------------------------------------
-    public static void sendTahvil(Context context,String strJsonListReserve){
+    public static void sendTahvil(Context context,String strJsonListReserve,final CallBack callback){
 
         try {
 
@@ -197,17 +193,16 @@ public class Webservice {
 
                         switch (resultCode) {
                             case RESULT_OK: {
-
-                                ArrayList<Personnel> personnels = Personnel.getArrayFromJson(result.getString("Personels"));
-                                ArrayList<Reserve> reserves = Reserve.getArrayFromJson(result.getString("Reserves"));
-                                String message = result.getString("Message");
-                                String status = result.getString("Status");
-                             //   callback.onSuccess(new ServerCardResponse(personnels,reserves,message,status));
+                                callback.onSuccess(null);
+                                break;
+                            }
+                            case RESULT_ERROR: {
+                                callback.onError("server return error");
                                 break;
                             }
 
                             default: {
-                             //   callback.onError("server response is not valid ");
+                                callback.onError("server response is not valid ");
                                 break;
                             }
                         }

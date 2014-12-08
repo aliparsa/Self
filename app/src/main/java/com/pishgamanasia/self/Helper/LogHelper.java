@@ -1,4 +1,4 @@
-package com.pishgamanasia.self.DataModel;
+package com.pishgamanasia.self.Helper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -83,7 +83,7 @@ public class LogHelper extends SQLiteOpenHelper {
     public List<Log> getAllLog(int count){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOG + " ORDER BY " + LOG_DATE + " DESC" + " LIMIT " + count , null);
+        final Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOG + " ORDER BY " + LOG_ID + " DESC" + " LIMIT " + count , null);
         ArrayList<Log> logs = new ArrayList<Log>();
 
 

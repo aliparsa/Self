@@ -19,7 +19,6 @@ import com.pishgamanasia.self.Interface.CallBack;
 import com.pishgamanasia.self.R;
 
 
-
 import java.util.ArrayList;
 
 
@@ -60,8 +59,6 @@ public class DeliveryActivity extends Activity {
 
 
 
-
-
             Button buttonTahvil = (Button) findViewById(R.id.buttonTahvil);
             buttonTahvil.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,7 +71,19 @@ public class DeliveryActivity extends Activity {
                     reserveId = reserveId.substring(0, reserveId.length() - 1);
                     reserveId+="]";
 
-                    Webservice.sendTahvil(context, reserveId);
+                    Webservice.sendTahvil(context, reserveId,new CallBack() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            finish();
+                            msgUser("تحویل شد");
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            msgUser("سرور نتوانست داده را ذخیره کند");
+                            finish();
+                        }
+                    });
                 }
             });
 
@@ -133,17 +142,19 @@ public class DeliveryActivity extends Activity {
             ArrayList<Food> foods = reserve.getFoods();
             for (Food food : foods) {
 
+                Food newFood = new Food(food.getId(), food.getCaption(), food.getCount());
+
                 boolean set = false;
                 for (Food oldFood:newFoods){
 
                     if(oldFood.getId() == food.getId()){
-                        oldFood.setCount(oldFood.getCount() + food.getCount());
+                        oldFood.setCount(oldFood.getCount() + newFood.getCount());
                         set = true;
                     }
                 }
 
                 if(!set){
-                    newFoods.add(food);
+                    newFoods.add(newFood);
                 }
             }
         }

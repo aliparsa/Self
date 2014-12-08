@@ -158,27 +158,30 @@ public class Reserve implements ListViewItemINTERFACE {
             holder.statusImage = (ImageView) view.findViewById(R.id.status_image);
 
 
-        holder.name.setText("نام شخص"+" : "+getName()+" "+getFamily());
+        holder.name.setText(getName()+" "+getFamily());
         //holder.family.setText(getFamily());
 
         if(getDeliveryStatus().equals("0")) {
-            holder.deliveryStatus.setText("وضعیت تحویل" + " : " + "تحویل نشده");
+            holder.deliveryStatus.setText("تحویل نشده");
             holder.deliverDate.setText("");
 
             holder.statusImage.setImageResource(R.drawable.ic_steak);
         }
         else {
-            holder.deliveryStatus.setText("وضعیت تحویل" + " : " + "تحویل شده");
-            holder.deliverDate.setText("تاریخ تحویل"+" : "+getDeliverDate());
+            holder.deliveryStatus.setText("تحویل شده");
+            holder.deliverDate.setText(getDeliverDate());
 
             holder.statusImage.setImageResource(R.drawable.ic_steak_bw);
         }
 
 
         String foodList = "";
-        for (int i = 0; i < getFoods().size(); i++) {
-             Food food = getFoods().get(i);
-            foodList= foodList+"● "+food.getCaption()+" تعداد "+food.getCount()+ "\n";
+        for (Food food: getFoods()) {
+
+            foodList+="● ";
+            foodList+=food.getCaption();
+            foodList+="   تعداد   ";
+            foodList+=food.getCount()+ "\n";
 
         }
         holder.foods.setText(foodList);
