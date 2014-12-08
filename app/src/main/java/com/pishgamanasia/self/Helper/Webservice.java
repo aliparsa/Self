@@ -150,7 +150,7 @@ public class Webservice {
 
                 @Override
                 public void onError(String errorMessage) {
-
+                    callback.onError(errorMessage);
                 }
             });
 

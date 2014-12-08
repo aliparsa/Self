@@ -55,6 +55,7 @@ public class DeliveryActivity extends Activity {
                 public void onError(String errorMessage) {
 
                     dialog.dismiss();
+                    finish();
                     msgUser(errorMessage);
                 }
             });
