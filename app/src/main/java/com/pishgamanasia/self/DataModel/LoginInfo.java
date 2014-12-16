@@ -1,6 +1,7 @@
 package com.pishgamanasia.self.DataModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by parsa on 2014-12-02.
@@ -12,13 +13,24 @@ public class LoginInfo implements Serializable{
     int resturantId;
     String resturantName;
     String deliverPersonel;
+    ArrayList<Meal> meals;
 
-    public LoginInfo(String token, String name, int resturantId, String resturantName, String deliverPersonel) {
+
+    public LoginInfo(String token, String name, int resturantId, String resturantName, String deliverPersonel,ArrayList<Meal> meals) {
         this.token = token;
         this.name = name;
         this.resturantId = resturantId;
         this.resturantName = resturantName;
         this.deliverPersonel = deliverPersonel;
+        this.meals=meals;
+    }
+
+    public ArrayList<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(ArrayList<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getToken() {

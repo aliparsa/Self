@@ -3,6 +3,7 @@ package com.pishgamanasia.self.Activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,7 @@ public class DeliveryActivity extends Activity {
 
     private Context context;
     private ServerCardResponse serverResponse;
+    private Button buttonTahvil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class DeliveryActivity extends Activity {
 
 
 
-            Button buttonTahvil = (Button) findViewById(R.id.buttonTahvil);
+             buttonTahvil = (Button) findViewById(R.id.buttonTahvil);
             FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,buttonTahvil, Typeface.NORMAL);
             buttonTahvil.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,6 +102,19 @@ public class DeliveryActivity extends Activity {
 
     private void showInformation(ServerCardResponse result) {
 
+        boolean haveReserve = checkReserve(result.getReserves());
+
+        if (!haveReserve){
+            buttonTahvil.setBackgroundColor(Color.RED);
+            buttonTahvil.setText("خروج");
+            buttonTahvil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
+
         ListView lvPersonnels = (ListView) findViewById(R.id.listView);
         ListView lvReserve = (ListView) findViewById(R.id.listView2);
         ListView lvTotal = (ListView) findViewById(R.id.listView3);
@@ -116,6 +131,10 @@ public class DeliveryActivity extends Activity {
 
         for (Reserve reserve:result.getReserves()) {
             ArrayList<Food> foods = reserve.getFoods();
+
+            if(reserve.getDeliveryStatus().equals("1"))
+                continue;
+
             for (Food food : foods) {
 
                 Food newFood = new Food(food.getId(), food.getCaption(), food.getCount());
@@ -138,6 +157,16 @@ public class DeliveryActivity extends Activity {
         ListViewObjectAdapter adapterTotal = new ListViewObjectAdapter(context, newFoods);
         lvTotal.setAdapter(adapterTotal);
 
+    }
+
+    private boolean checkReserve(ArrayList<Reserve> reserves) {
+        boolean haveReserve =false;
+        for (Reserve reserve:reserves){
+            if (reserve.getDeliveryStatus().equals("0")){
+                haveReserve=true;
+            }
+        }
+        return haveReserve;
     }
 
 

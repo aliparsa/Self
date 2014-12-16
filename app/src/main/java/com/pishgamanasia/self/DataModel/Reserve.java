@@ -51,8 +51,7 @@ public class Reserve implements ListViewItemINTERFACE {
                 String name = obj.getString("Name");
                 String family = obj.getString("Family");
                 String deliveryStatus = obj.getString("DeliveryStatus");
-                String deliverDate = "2014/12/07 09:35" ;
-                        //obj.getString("DeliveryDate");
+                String deliverDate = obj.getString("DeliverDate");
 
                 //foods
                 ArrayList<Food> foods = new ArrayList<Food>();
@@ -169,7 +168,7 @@ public class Reserve implements ListViewItemINTERFACE {
         }
         else {
             holder.deliveryStatus.setText("تحویل شده");
-            holder.deliverDate.setText(getDeliverDate());
+            holder.deliverDate.setText(new PersianCalendar(getDeliverDate()).getIranianDateTime());
 
             holder.statusImage.setImageResource(R.drawable.ic_steak_bw);
         }

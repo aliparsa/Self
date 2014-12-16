@@ -4,6 +4,7 @@ import android.content.Context;
 
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.DataModel.Meal;
 import com.pishgamanasia.self.DataModel.Personnel;
 import com.pishgamanasia.self.DataModel.Reserve;
 import com.pishgamanasia.self.DataModel.ServerCardResponse;
@@ -68,7 +69,9 @@ public class Webservice {
                                 int resturantId = result.getInt("restaurantId");
                                 String resturantName = result.getString("restaurantName");
                                 String deliverPersonel = result.getString("deliverPersonel");
-                                callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel));
+                                String meal = result.getString("meal");
+                                ArrayList<Meal> meals= Meal.getArrayFromJson(meal);
+                                callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel,meals));
                                 break;
                             }
                             case RESULT_ERROR: {

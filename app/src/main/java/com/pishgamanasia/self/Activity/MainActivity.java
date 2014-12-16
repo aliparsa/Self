@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self.DataModel.LoginInfo;
+import com.pishgamanasia.self.DataModel.Meal;
 import com.pishgamanasia.self.Helper.AccountHelper;
 import com.pishgamanasia.self.Helper.FontHelper;
 import com.pishgamanasia.self.Helper.SettingHelper;
@@ -43,20 +45,19 @@ public class MainActivity extends Activity {
     private ImageView exit;
     private ImageView imgv_setting;
     private EditText code;
+    private TextView montazer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
         context=this;
 
-
-
-
-
-
         LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
-
 
 
         montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
@@ -67,8 +68,15 @@ public class MainActivity extends Activity {
         exit = (ImageView) findViewById(R.id.imagev_exit);
         imgv_setting = (ImageView) findViewById(R.id.imgv_setting);
         code = (EditText) findViewById(R.id.code);
+        montazer = (TextView) findViewById(R.id.textViewMontazerKart);
 
-        buffetName.setText(loginInfo.getResturantName());
+        String strMeals="\n\n";
+        for(Meal meal:loginInfo.getMeals()){
+            strMeals+=meal.getMeal()+"\n";
+        }
+
+
+        buffetName.setText(loginInfo.getResturantName()+strMeals);
         userName.setText(loginInfo.getName());
 
 
@@ -139,18 +147,43 @@ public class MainActivity extends Activity {
 
     private void setTimer() {
 
-        TimerHelper.timerFactory(1000,2 , new TimerHelper.TimerFunction() {
+
+        TimerHelper.timerFactory(1000, 0, new TimerHelper.TimerFunction() {
             @Override
             public void tick() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Calendar c = Calendar.getInstance();
-                        int hr = c.get(Calendar.HOUR);
+                        int hr = c.get(Calendar.HOUR_OF_DAY);
                         int min = c.get(Calendar.MINUTE);
                         int sec = c.get(Calendar.SECOND);
-                        timer.setText(hr+" : "+ (min < 10 ? "0"+min : min) +" : "+ (sec < 10 ? "0"+sec : sec));
+                        timer.setText(hr + " : " + (min < 10 ? "0" + min : min) + " : " + (sec < 10 ? "0" + sec : sec));
+
                     }
+
+                });
+            }
+        });
+
+        TimerHelper.timerFactory(400, 0, new TimerHelper.TimerFunction() {
+            @Override
+            public void tick() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (montazer.getText().equals("منتظر کارت")) {
+                            montazer.setText(".منتظر کارت.");
+                        } else if (montazer.getText().equals(".منتظر کارت.")) {
+                            montazer.setText("..منتظر کارت..");
+                        } else if (montazer.getText().equals("..منتظر کارت..")) {
+                            montazer.setText("...منتظر کارت...");
+                        } else if (montazer.getText().equals("...منتظر کارت...")) {
+                            montazer.setText("منتظر کارت");
+                        }
+                    }
+
                 });
             }
         });
