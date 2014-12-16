@@ -119,6 +119,7 @@ public class AsynLoadImage extends AsyncTask<String, String, Bitmap> {
 
                 file.delete();
 
+
                 return image;
             }
 

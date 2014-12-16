@@ -103,7 +103,7 @@ public class Personnel implements ListViewItemINTERFACE {
             AsynLoadImage loader = new AsynLoadImage(context, getImageUrl(), new AsynLoadImage.ProgressCallBack<Bitmap>() {
                 @Override
                 public void onSuccess(Bitmap result) {
-                    holder.image.setImageBitmap(result);
+                        holder.image.setImageBitmap(result);
                 }
 
                 @Override
