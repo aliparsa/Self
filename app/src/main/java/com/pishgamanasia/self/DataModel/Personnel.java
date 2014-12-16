@@ -98,7 +98,7 @@ public class Personnel implements ListViewItemINTERFACE {
         holder.code.setText("کد ملی: "+getNationalNo());
 
 
-        if(!getImageUrl().equals("")){
+        if(getImageUrl() != null && !getImageUrl().equals("null") && !getImageUrl().equals("")){
 
             AsynLoadImage loader = new AsynLoadImage(context, getImageUrl(), new AsynLoadImage.ProgressCallBack<Bitmap>() {
                 @Override
@@ -116,6 +116,9 @@ public class Personnel implements ListViewItemINTERFACE {
 
                 }
             });
+
+
+            loader.execute();
         }
 
     }

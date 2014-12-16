@@ -21,7 +21,7 @@ public class TimerHelper {
                 function.tick();
             }
 
-        }, 0, 1000);
+        }, count, milisec);
 
 
     }
