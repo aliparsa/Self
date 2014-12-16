@@ -18,12 +18,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by parsa on 2014-12-06.
- */
 public class Personnel implements ListViewItemINTERFACE {
     int id;
-
     String name;
     String family;
     String nationalNo;
@@ -40,31 +36,25 @@ public class Personnel implements ListViewItemINTERFACE {
     public static ArrayList<Personnel> getArrayFromJson(String personnelJson) {
         ArrayList<Personnel> itemlist = null;
         try {
-
             JSONArray jsonArray = new JSONArray(personnelJson);
             itemlist = new ArrayList<Personnel>();
             for (int i = 0; i < jsonArray.length(); i++) {
-
                 JSONObject obj = jsonArray.getJSONObject(i);
-
                 int id = obj.getInt("Id");
                 String name = obj.getString("Name");
-                String family= obj.getString("Family");
-                String nationalNo= obj.getString("NationalNo");
-                String imageUrl= obj.getString("ImageUrl");
+                String family = obj.getString("Family");
+                String nationalNo = obj.getString("NationalNo");
+                String imageUrl = obj.getString("ImageUrl");
                 Personnel personnel = new Personnel(id, name, family, nationalNo, imageUrl);
                 itemlist.add(personnel);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return itemlist;
     }
 
     public View getView(Context context, View oldView) {
-
         if (oldView == null || !(oldView.getTag() instanceof Personnel)) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             oldView = inflater.inflate(R.layout.item_personnel, null);
@@ -81,25 +71,13 @@ public class Personnel implements ListViewItemINTERFACE {
     }
 
     private void getItem(final Holder holder, View view, Context context) {
-
         holder.personnel = this;
-
-        if (holder.name == null)
-            holder.name = (TextView) view.findViewById(R.id.personnelName);
-
-        if (holder.code == null)
-            holder.code = (TextView) view.findViewById(R.id.personnelCode);
-
-        if (holder.image == null)
-            holder.image = (ImageView) view.findViewById(R.id.personnelImage);
-
-
+        if (holder.name == null) holder.name = (TextView) view.findViewById(R.id.personnelName);
+        if (holder.code == null) holder.code = (TextView) view.findViewById(R.id.personnelCode);
+        if (holder.image == null) holder.image = (ImageView) view.findViewById(R.id.personnelImage);
         holder.name.setText(getName() + " " + getFamily());
-        holder.code.setText("کد ملی: "+getNationalNo());
-
-
-        if(!getImageUrl().equals("")){
-
+        holder.code.setText("کد ملی: " + getNationalNo());
+        if (!getImageUrl().equals("")) {
             AsynLoadImage loader = new AsynLoadImage(context, getImageUrl(), new AsynLoadImage.ProgressCallBack<Bitmap>() {
                 @Override
                 public void onSuccess(Bitmap result) {
@@ -108,18 +86,14 @@ public class Personnel implements ListViewItemINTERFACE {
 
                 @Override
                 public void onError(String errorMessage) {
-
                 }
 
                 @Override
                 public void onProgress(int done, int total, Bitmap result) {
-
                 }
             });
         }
-
     }
-
 
     public class Holder {
         TextView name;
@@ -127,9 +101,9 @@ public class Personnel implements ListViewItemINTERFACE {
         ImageView image;
         Personnel personnel;
 
-        public void setFont(Context context){
-            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,name, Typeface.NORMAL);
-            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,code, Typeface.NORMAL);
+        public void setFont(Context context) {
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, name, Typeface.NORMAL);
+            FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, code, Typeface.NORMAL);
         }
     }
 
